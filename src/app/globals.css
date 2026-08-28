@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #070c16;
+  --color-panel: #0e1729;
+  --color-panel-2: #131f35;
+  --color-line: #1f2d47;
+  --color-line-soft: #18233a;
+  --color-ink: #e8eefb;
+  --color-muted: #8ba0c0;
+  --color-faint: #5d7ba6;
+  --color-accent: #2dd4bf;
+  --color-accent-2: #34d399;
+  --color-warn: #fbbf24;
+  --color-danger: #f87171;
+  --color-info: #60a5fa;
+
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-image:
+    radial-gradient(1100px 600px at 12% -8%, rgba(45, 212, 191, 0.09), transparent 60%),
+    radial-gradient(900px 500px at 92% 0%, rgba(56, 189, 248, 0.07), transparent 55%);
+  background-attachment: fixed;
+}
+
+/* Numeric tables read better with tabular figures */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e2c46;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2a3c5c;
+  background-clip: content-box;
+}
+
+.card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+}
+
+.card-hover:hover {
+  border-color: #2a3c5c;
+  background: linear-gradient(180deg, rgba(45, 212, 191, 0.06), rgba(255, 255, 255, 0));
+}
+
+input,
+select,
+textarea {
+  color-scheme: dark;
+}
+
+input[type="range"] {
+  accent-color: var(--color-accent);
+}
+
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-sheet {
+    background: #fff !important;
+    color: #000 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  .print-sheet * {
+    color: #000 !important;
+    border-color: #cbd5e1 !important;
+  }
+}
