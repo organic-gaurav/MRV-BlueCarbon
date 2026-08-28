@@ -554,14 +554,14 @@ export default function EnginePage() {
                 <div key={l.key} className="flex items-baseline justify-between gap-3 border-b border-line-soft/60 py-1.5 last:border-0">
                   <div>
                     <p
-                      className={`text-[12px] ${l.key === "net" ? "font-semibold text-emerald-300" : "text-ink"}`}
+                      className={`text-[12px] ${l.key === "net" ? "font-semibold text-white" : "text-ink"}`}
                     >
                       {l.label}
                     </p>
                     <p className="text-[10.5px] text-faint">{l.note}</p>
                   </div>
                   <span
-                    className={`tnum shrink-0 text-[12.5px] ${l.sign < 0 ? "text-rose-300" : "text-ink"}`}
+                    className={`tnum shrink-0 text-[12.5px] ${l.sign < 0 ? "text-neutral-400" : "text-ink"}`}
                   >
                     {l.sign < 0 ? "−" : ""}
                     {num(Math.abs(l.value))}
@@ -602,7 +602,7 @@ export default function EnginePage() {
               series={[
                 {
                   name: "Net credits (tCO₂e)",
-                  color: "#a78bfa",
+                  color: "#c2c2c2",
                   values: sensitivity.map((s) => s.net),
                 },
               ]}

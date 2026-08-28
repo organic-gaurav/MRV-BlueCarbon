@@ -96,9 +96,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-screen">
-      <aside className="no-print sticky top-0 hidden h-screen w-[228px] shrink-0 flex-col border-r border-line bg-panel/70 backdrop-blur lg:flex">
-        <div className="flex items-center gap-2.5 border-b border-line px-4 py-4">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-teal-400 to-emerald-500 text-[#04211d]">
+      <aside className="no-print sticky top-0 hidden h-screen w-[228px] shrink-0 flex-col border-r border-white/10 bg-black/40 backdrop-blur-2xl lg:flex">
+        <div className="flex items-center gap-2.5 border-b border-white/10 px-4 py-4">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.18)]">
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -133,12 +133,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   <Link
                     key={n.href}
                     href={n.href}
-                    className={`mb-0.5 flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-[12.5px] transition-colors ${
+                    className={`relative mb-0.5 flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-[12.5px] transition-colors ${
                       active
-                        ? "bg-accent/12 font-medium text-accent"
-                        : "text-muted hover:bg-white/5 hover:text-ink"
+                        ? "bg-white/[0.11] font-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
+                        : "text-muted hover:bg-white/[0.05] hover:text-white"
                     }`}
                   >
+                    {active && (
+                      <span className="absolute left-0 top-1/2 h-4 w-[2.5px] -translate-y-1/2 rounded-full bg-white" />
+                    )}
                     <Icon>{n.icon}</Icon>
                     {n.label}
                   </Link>
@@ -148,7 +151,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           ))}
         </nav>
 
-        <div className="border-t border-line p-3">
+        <div className="border-t border-white/10 p-3">
           <p className="mb-2 text-[10px] leading-relaxed text-faint">
             {ready && data
               ? `${data.projects.length} projects · ${data.plots.length} plots · ${data.observations.length} surveys`
@@ -185,8 +188,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </aside>
 
       <main className="min-w-0 flex-1">
-        <div className="no-print sticky top-0 z-20 flex items-center gap-3 border-b border-line bg-canvas/85 px-4 py-3 backdrop-blur lg:hidden">
-          <div className="flex h-7 w-7 items-center justify-center rounded-md bg-gradient-to-br from-teal-400 to-emerald-500 text-[#04211d]">
+        <div className="no-print sticky top-0 z-20 flex items-center gap-3 border-b border-white/10 bg-black/50 px-4 py-3 backdrop-blur-2xl lg:hidden">
+          <div className="flex h-7 w-7 items-center justify-center rounded-md bg-white text-black">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
               <path d="M12 21c0-6 3-10 8-11-1 6-4 9-8 11zM12 21c0-6-3-10-8-11 1 6 4 9 8 11z" />
             </svg>
@@ -201,7 +204,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 key={n.href}
                 href={n.href}
                 className={`whitespace-nowrap rounded-md px-2 py-1 text-[11px] ${
-                  pathname === n.href ? "bg-accent/15 text-accent" : "text-muted"
+                  pathname === n.href ? "bg-white/[0.14] text-white" : "text-muted"
                 }`}
               >
                 {n.label}

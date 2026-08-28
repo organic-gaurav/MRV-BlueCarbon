@@ -24,6 +24,16 @@ All names, handles and credit lines live in one file — `src/lib/branding.ts`.
 Change `BRAND` and the sidebar, browser tab, favicon, page metadata and printed
 report footer all follow.
 
+## Theme
+
+The UI is a **monochrome (black & white) glassmorphism** design: a deep-black
+stage with soft light blooms and film grain, frosted translucent panels
+(`.glass` + `.card` in `src/app/globals.css`), hairline white borders and a
+white accent. Semantic colours collapse into an intensity ladder — status
+tones map to white→gray opacities, and danger inverts to a solid white chip.
+Chart series use the shared grayscale palette (`MONO` in
+`src/components/charts.tsx`); print output stays black-on-white.
+
 ## What's in the box
 
 Nine screens, one shared data model.

@@ -2,6 +2,9 @@
 
 import React from "react";
 
+/* Monochrome series palette — black & white theme */
+export const MONO = ["#ffffff", "#c2c2c2", "#8a8a8a", "#565656", "#333333"] as const;
+
 /* ------------------------------------------------------------------ */
 /* Line / area chart                                                   */
 /* ------------------------------------------------------------------ */
@@ -82,7 +85,7 @@ export function LineChart({
               x2={W - padR}
               y1={y(t)}
               y2={y(t)}
-              stroke="#1f2d47"
+              stroke="rgba(255,255,255,0.09)"
               strokeWidth={1}
               strokeDasharray={i === 0 ? "" : "3 4"}
             />
@@ -91,7 +94,7 @@ export function LineChart({
               y={y(t) + 3.5}
               textAnchor="end"
               fontSize={9.5}
-              fill="#5d7ba6"
+              fill="#737373"
             >
               {formatValue(t)}
             </text>
@@ -104,7 +107,7 @@ export function LineChart({
             x2={W - padR}
             y1={y(0)}
             y2={y(0)}
-            stroke="#3b4c6b"
+            stroke="rgba(255,255,255,0.16)"
             strokeWidth={1}
           />
         )}
@@ -131,7 +134,7 @@ export function LineChart({
                     cx={x(pt.i)}
                     cy={y(pt.v)}
                     r={2.8}
-                    fill="#0e1729"
+                    fill="#0a0a0a"
                     stroke={p.s.color}
                     strokeWidth={1.8}
                   />
@@ -147,7 +150,7 @@ export function LineChart({
             y={H - 8}
             textAnchor="middle"
             fontSize={9.5}
-            fill="#5d7ba6"
+            fill="#737373"
           >
             {l}
           </text>
@@ -216,10 +219,10 @@ export function BarChart({
             x2={W - padR}
             y1={y(max * f)}
             y2={y(max * f)}
-            stroke="#1f2d47"
+            stroke="rgba(255,255,255,0.09)"
             strokeDasharray={f === 0 ? "" : "3 4"}
           />
-          <text x={padL - 8} y={y(max * f) + 3.5} textAnchor="end" fontSize={9.5} fill="#5d7ba6">
+          <text x={padL - 8} y={y(max * f) + 3.5} textAnchor="end" fontSize={9.5} fill="#737373">
             {formatValue(max * f)}
           </text>
         </g>
@@ -251,7 +254,7 @@ export function BarChart({
                 y={H - 26}
                 textAnchor="middle"
                 fontSize={9.5}
-                fill="#8ba0c0"
+                fill="#8a8a8a"
               >
                 {l}
               </text>
@@ -266,10 +269,10 @@ export function BarChart({
               width={bw}
               height={Math.max(0, y(min) - y(values[i]))}
               rx={3}
-              fill={colors?.[i] ?? "#2dd4bf"}
+              fill={colors?.[i] ?? "#ffffff"}
               opacity={0.85}
             />
-            <text x={cx(i)} y={H - 26} textAnchor="middle" fontSize={9.5} fill="#8ba0c0">
+            <text x={cx(i)} y={H - 26} textAnchor="middle" fontSize={9.5} fill="#8a8a8a">
               {l}
             </text>
           </g>
@@ -280,7 +283,7 @@ export function BarChart({
           {stacked.map((s, i) => (
             <g key={s.name} transform={`translate(${padL + i * 100}, ${H - 12})`}>
               <rect width={9} height={9} rx={2} fill={s.color} />
-              <text x={13} y={8} fontSize={9.5} fill="#8ba0c0">
+              <text x={13} y={8} fontSize={9.5} fill="#8a8a8a">
                 {s.name}
               </text>
             </g>
@@ -318,7 +321,7 @@ export function HBar({
               className="h-full rounded-full transition-all"
               style={{
                 width: `${(Math.abs(i.value) / max) * 100}%`,
-                background: i.color ?? "#2dd4bf",
+                background: i.color ?? "#ffffff",
               }}
             />
           </div>
@@ -353,7 +356,7 @@ export function Donut({
   return (
     <div className="flex items-center gap-4">
       <svg width={size} height={size} className="shrink-0">
-        <circle cx={c} cy={c} r={r} fill="none" stroke="#1a2537" strokeWidth={thickness} />
+        <circle cx={c} cy={c} r={r} fill="none" stroke="rgba(255,255,255,0.09)" strokeWidth={thickness} />
         {segments.map((s) => {
           const frac = s.value / total;
           const dash = frac * circ;
@@ -383,11 +386,11 @@ export function Donut({
               textAnchor="middle"
               fontSize={17}
               fontWeight={600}
-              fill="#e8eefb"
+              fill="#fafafa"
             >
               {centre.value}
             </text>
-            <text x={c} y={c + 14} textAnchor="middle" fontSize={9.5} fill="#8ba0c0">
+            <text x={c} y={c + 14} textAnchor="middle" fontSize={9.5} fill="#8a8a8a">
               {centre.label}
             </text>
           </>
@@ -417,7 +420,7 @@ export function Donut({
 
 export function Sparkline({
   values,
-  color = "#2dd4bf",
+  color = "#ffffff",
   width = 72,
   height = 22,
 }: {
@@ -452,7 +455,7 @@ export function Gauge({
   value,
   label,
   size = 96,
-  color = "#2dd4bf",
+  color = "#ffffff",
 }: {
   value: number;
   label?: string;
@@ -469,7 +472,7 @@ export function Gauge({
         <path
           d={`M 8 ${c} A ${r} ${r} 0 0 1 ${size - 8} ${c}`}
           fill="none"
-          stroke="#1a2537"
+          stroke="rgba(255,255,255,0.09)"
           strokeWidth={9}
           strokeLinecap="round"
         />
@@ -487,12 +490,12 @@ export function Gauge({
           textAnchor="middle"
           fontSize={19}
           fontWeight={600}
-          fill="#e8eefb"
+          fill="#fafafa"
         >
           {Math.round(value)}
         </text>
         {label && (
-          <text x={c} y={c + 10} textAnchor="middle" fontSize={9.5} fill="#8ba0c0">
+          <text x={c} y={c + 10} textAnchor="middle" fontSize={9.5} fill="#8a8a8a">
             {label}
           </text>
         )}

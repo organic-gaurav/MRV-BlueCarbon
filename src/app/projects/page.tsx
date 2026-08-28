@@ -226,7 +226,7 @@ export default function ProjectsPage() {
                     .map((r) => ({
                       label: `${r.project.code} · ${r.project.registry}`,
                       value: r.issued,
-                      color: "#a78bfa",
+                      color: "#c2c2c2",
                       sub: `${r.campaigns.filter((c) => c.status === "verified").length} verified vintages`,
                     }))}
                   formatValue={(v) => `${num(v)} tCO₂e`}

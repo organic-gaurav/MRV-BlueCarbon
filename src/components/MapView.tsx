@@ -95,11 +95,11 @@ export function MapView({
       <svg
         viewBox={`0 0 ${W} ${H}`}
         className="w-full rounded-xl"
-        style={{ height, background: "rgba(8,17,32,0.55)" }}
+        style={{ height, background: "rgba(255,255,255,0.03)" }}
       >
         <defs>
           <pattern id="grid-dots" width="18" height="18" patternUnits="userSpaceOnUse">
-            <circle cx="1" cy="1" r="0.7" fill="#1b2a44" />
+            <circle cx="1" cy="1" r="0.7" fill="rgba(255,255,255,0.12)" />
           </pattern>
         </defs>
         <rect width={W} height={H} fill="url(#grid-dots)" />
@@ -113,10 +113,10 @@ export function MapView({
                 x2={p.x(x)}
                 y1={0}
                 y2={H}
-                stroke="#16233a"
+                stroke="rgba(255,255,255,0.06)"
                 strokeWidth={1}
               />
-              <text x={p.x(x) + 3} y={H - 6} fontSize={9} fill="#3f5478">
+              <text x={p.x(x) + 3} y={H - 6} fontSize={9} fill="#5f5f5f">
                 {x.toFixed(step < 1 ? 1 : 0)}°E
               </text>
             </g>
@@ -128,10 +128,10 @@ export function MapView({
                 x2={W}
                 y1={p.y(y)}
                 y2={p.y(y)}
-                stroke="#16233a"
+                stroke="rgba(255,255,255,0.06)"
                 strokeWidth={1}
               />
-              <text x={4} y={p.y(y) - 4} fontSize={9} fill="#3f5478">
+              <text x={4} y={p.y(y) - 4} fontSize={9} fill="#5f5f5f">
                 {y.toFixed(step < 1 ? 1 : 0)}°N
               </text>
             </g>
@@ -143,7 +143,7 @@ export function MapView({
           <path
             d={pathOf(COAST_MAIN, p)}
             fill="none"
-            stroke="#20364f"
+            stroke="rgba(255,255,255,0.16)"
             strokeWidth={7}
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -152,23 +152,23 @@ export function MapView({
           <path
             d={pathOf(COAST_MAIN, p)}
             fill="none"
-            stroke="#2b4a6b"
+            stroke="rgba(255,255,255,0.11)"
             strokeWidth={3}
             strokeLinecap="round"
             strokeLinejoin="round"
           />
           <path
             d={pathOf(SRI_LANKA, p, true)}
-            fill="#131f30"
-            stroke="#2b4a6b"
+            fill="rgba(255,255,255,0.05)"
+            stroke="rgba(255,255,255,0.11)"
             strokeWidth={1.6}
           />
           {ANDAMAN.map((a, i) => (
             <path
               key={i}
               d={pathOf(a, p, true)}
-              fill="#131f30"
-              stroke="#2b4a6b"
+              fill="rgba(255,255,255,0.05)"
+              stroke="rgba(255,255,255,0.11)"
               strokeWidth={1.4}
             />
           ))}
@@ -208,9 +208,9 @@ export function MapView({
                     textAnchor="middle"
                     fontSize={9.5}
                     fontWeight={600}
-                    fill="#dbeafe"
+                    fill="#ffffff"
                     style={{ pointerEvents: "none", paintOrder: "stroke" }}
-                    stroke="#040b16"
+                    stroke="#030303"
                     strokeWidth={2.6}
                   >
                     {s.code}
@@ -229,9 +229,9 @@ export function MapView({
               cx={p.x(pl.lon)}
               cy={p.y(pl.lat)}
               r={2.1}
-              fill="#e8eefb"
+              fill="#ffffff"
               fillOpacity={0.75}
-              stroke="#040b16"
+              stroke="#030303"
               strokeWidth={0.8}
             />
           ))}
@@ -239,25 +239,25 @@ export function MapView({
 
         {/* scale bar */}
         <g transform={`translate(${W - barPx - 22}, ${H - 22})`}>
-          <line x1={0} x2={barPx} y1={0} y2={0} stroke="#7d93b4" strokeWidth={1.6} />
-          <line x1={0} x2={0} y1={-4} y2={4} stroke="#7d93b4" strokeWidth={1.6} />
-          <line x1={barPx} x2={barPx} y1={-4} y2={4} stroke="#7d93b4" strokeWidth={1.6} />
-          <text x={barPx / 2} y={-7} textAnchor="middle" fontSize={9} fill="#7d93b4">
+          <line x1={0} x2={barPx} y1={0} y2={0} stroke="#a3a3a3" strokeWidth={1.6} />
+          <line x1={0} x2={0} y1={-4} y2={4} stroke="#a3a3a3" strokeWidth={1.6} />
+          <line x1={barPx} x2={barPx} y1={-4} y2={4} stroke="#a3a3a3" strokeWidth={1.6} />
+          <text x={barPx / 2} y={-7} textAnchor="middle" fontSize={9} fill="#a3a3a3">
             {niceKm} km
           </text>
         </g>
 
         {/* north arrow */}
         <g transform={`translate(24, ${H - 34})`}>
-          <path d="M 0 18 L 5 0 L 10 18 L 5 13 Z" fill="#7d93b4" />
-          <text x={5} y={-3} textAnchor="middle" fontSize={9} fill="#7d93b4">
+          <path d="M 0 18 L 5 0 L 10 18 L 5 13 Z" fill="#a3a3a3" />
+          <text x={5} y={-3} textAnchor="middle" fontSize={9} fill="#a3a3a3">
             N
           </text>
         </g>
       </svg>
 
       {active && (
-        <div className="pointer-events-none absolute top-3 left-3 max-w-[260px] rounded-lg border border-line bg-canvas/95 p-3 shadow-xl backdrop-blur">
+        <div className="pointer-events-none absolute top-3 left-3 max-w-[260px] rounded-lg border border-line bg-black/70 p-3 shadow-xl backdrop-blur">
           <p className="text-[12.5px] font-semibold text-ink">{active.name}</p>
           <p className="text-[10.5px] text-muted">
             {active.projectCode} · {active.stratum}

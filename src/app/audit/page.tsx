@@ -123,7 +123,7 @@ export default function AuditPage() {
                 className={`group relative h-8 w-8 rounded-md border text-center text-[9px] leading-8 ${
                   ok
                     ? "border-accent/30 bg-accent/10 text-accent"
-                    : "border-rose-500/40 bg-rose-500/10 text-rose-300"
+                    : "border-white/45 bg-white/[0.13] text-white"
                 }`}
               >
                 {e.hash.slice(0, 3)}

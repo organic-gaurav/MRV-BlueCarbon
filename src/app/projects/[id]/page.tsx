@@ -255,12 +255,12 @@ export default function ProjectPage() {
               stacked={[
                 {
                   name: "Biomass C",
-                  color: "#34d399",
+                  color: "#ffffff",
                   values: view.series.map((s) => s.biomassCMg),
                 },
                 {
                   name: "Soil C",
-                  color: "#0ea5e9",
+                  color: "#a3a3a3",
                   values: view.series.map((s) => s.soilCMg),
                 },
               ]}
@@ -279,7 +279,7 @@ export default function ProjectPage() {
                     (a, s) => a + s.stock.biomassCMg * 0.62,
                     0,
                   ),
-                  color: "#34d399",
+                  color: "#ffffff",
                 },
                 {
                   label: "Below-ground biomass",
@@ -287,9 +287,9 @@ export default function ProjectPage() {
                     (a, s) => a + s.stock.biomassCMg * 0.38,
                     0,
                   ),
-                  color: "#22d3ee",
+                  color: "#565656",
                 },
-                { label: "Soil organic carbon", value: view.stock.soilCMg, color: "#0ea5e9" },
+                { label: "Soil organic carbon", value: view.stock.soilCMg, color: "#a3a3a3" },
               ]}
               centre={{ value: num(view.stock.cMgHa, 0), label: "Mg C ha⁻¹" }}
             />
@@ -317,7 +317,7 @@ export default function ProjectPage() {
               series={[
                 {
                   name: "Gross increment (tCO₂e)",
-                  color: "#34d399",
+                  color: "#ffffff",
                   values: view.series.map((s) => s.deltaCo2eMg),
                 },
               ]}
@@ -379,16 +379,16 @@ export default function ProjectPage() {
                 <span key="g" className="tnum">
                   {num(i.grossT)}
                 </span>,
-                <span key="l" className="tnum text-rose-300">
+                <span key="l" className="tnum text-neutral-400">
                   −{num(i.leakageT)}
                 </span>,
-                <span key="u" className="tnum text-rose-300">
+                <span key="u" className="tnum text-neutral-400">
                   −{num(i.uncertaintyT)}
                 </span>,
-                <span key="b" className="tnum text-rose-300">
+                <span key="b" className="tnum text-neutral-400">
                   −{num(i.bufferT)}
                 </span>,
-                <span key="n" className="tnum font-semibold text-emerald-300">
+                <span key="n" className="tnum font-semibold text-white">
                   {num(i.netT)}
                 </span>,
                 <Badge key="st" tone={i.status === "retired" ? "slate" : "violet"}>
@@ -639,7 +639,7 @@ export default function ProjectPage() {
                       {num(r.extentHa)}{" "}
                       <span
                         className={
-                          drift < -2 ? "text-rose-300" : drift > 2 ? "text-emerald-300" : "text-faint"
+                          drift < -2 ? "text-neutral-400" : drift > 2 ? "text-white" : "text-faint"
                         }
                       >
                         ({drift >= 0 ? "+" : ""}
@@ -824,7 +824,7 @@ export default function ProjectPage() {
                   <span
                     key="l"
                     className={
-                      l.key === "net" ? "font-semibold text-emerald-300" : "text-ink"
+                      l.key === "net" ? "font-semibold text-white" : "text-ink"
                     }
                   >
                     {l.label}
@@ -834,7 +834,7 @@ export default function ProjectPage() {
                   </span>,
                   <span
                     key="v"
-                    className={`tnum ${l.sign < 0 ? "text-rose-300" : "text-ink"}`}
+                    className={`tnum ${l.sign < 0 ? "text-neutral-400" : "text-ink"}`}
                   >
                     {l.sign < 0 ? "−" : ""}
                     {num(Math.abs(l.value))}

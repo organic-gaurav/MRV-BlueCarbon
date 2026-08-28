@@ -497,7 +497,7 @@ export default function CollectPage() {
                             d ? { ...d, stems: d.stems.filter((x) => x.id !== s.id) } : d,
                           )
                         }
-                        className="text-[13px] text-faint hover:text-rose-300"
+                        className="text-[13px] text-faint hover:text-white"
                         aria-label="Remove stem"
                       >
                         ✕
@@ -649,7 +649,7 @@ export default function CollectPage() {
                               : d,
                           )
                         }
-                        className="text-[13px] text-faint hover:text-rose-300"
+                        className="text-[13px] text-faint hover:text-white"
                         aria-label="Remove quadrat"
                       >
                         ✕
@@ -777,7 +777,7 @@ export default function CollectPage() {
                 Save to offline queue
               </Button>
               {saved && (
-                <span className="text-[11.5px] text-emerald-300">
+                <span className="text-[11.5px] text-white">
                   Queued: {saved}
                 </span>
               )}

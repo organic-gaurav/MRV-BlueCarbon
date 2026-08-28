@@ -1,19 +1,23 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------ */
+/* Monochrome design tokens — pure black & white                        */
+/* ------------------------------------------------------------------ */
+
 @theme {
-  --color-canvas: #070c16;
-  --color-panel: #0e1729;
-  --color-panel-2: #131f35;
-  --color-line: #1f2d47;
-  --color-line-soft: #18233a;
-  --color-ink: #e8eefb;
-  --color-muted: #8ba0c0;
-  --color-faint: #5d7ba6;
-  --color-accent: #2dd4bf;
-  --color-accent-2: #34d399;
-  --color-warn: #fbbf24;
-  --color-danger: #f87171;
-  --color-info: #60a5fa;
+  --color-canvas: #030303;
+  --color-panel: #0a0a0a;
+  --color-panel-2: #161616;
+  --color-line: rgba(255, 255, 255, 0.1);
+  --color-line-soft: rgba(255, 255, 255, 0.06);
+  --color-ink: #fafafa;
+  --color-muted: #a3a3a3;
+  --color-faint: #6b6b6b;
+  --color-accent: #ffffff;
+  --color-accent-2: #d4d4d4;
+  --color-warn: #a3a3a3;
+  --color-danger: #ffffff;
+  --color-info: #d4d4d4;
 
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
@@ -35,11 +39,25 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Deep-black stage with soft monochrome light blooms + film grain behind the glass */
 body {
-  background-image:
-    radial-gradient(1100px 600px at 12% -8%, rgba(45, 212, 191, 0.09), transparent 60%),
-    radial-gradient(900px 500px at 92% 0%, rgba(56, 189, 248, 0.07), transparent 55%);
+  background-color: #030303;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"),
+    radial-gradient(1100px 640px at 12% -8%, rgba(255, 255, 255, 0.07), transparent 60%),
+    radial-gradient(900px 520px at 92% -2%, rgba(255, 255, 255, 0.04), transparent 55%),
+    radial-gradient(1000px 800px at 50% 115%, rgba(255, 255, 255, 0.03), transparent 62%);
   background-attachment: fixed;
+}
+
+/* numeric hero figures get a faint white halo */
+.tnum.text-2xl,
+.tnum.text-xl {
+  text-shadow: 0 0 26px rgba(255, 255, 255, 0.22);
+}
+
+::selection {
+  background: #ffffff;
+  color: #000000;
 }
 
 /* Numeric tables read better with tabular figures */
@@ -56,25 +74,79 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e2c46;
+  background: rgba(255, 255, 255, 0.14);
   border-radius: 8px;
   border: 2px solid transparent;
   background-clip: content-box;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2a3c5c;
+  background: rgba(255, 255, 255, 0.24);
   background-clip: content-box;
 }
 
-.card {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
-  border: 1px solid var(--color-line);
-  border-radius: 14px;
+/* ------------------------------------------------------------------ */
+/* Glassmorphism surfaces                                               */
+/* ------------------------------------------------------------------ */
+
+.glass {
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.075),
+    rgba(255, 255, 255, 0.028) 42%,
+    rgba(255, 255, 255, 0.045) 100%
+  );
+  -webkit-backdrop-filter: blur(18px) saturate(0);
+  backdrop-filter: blur(18px) saturate(0);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 10px 30px rgba(0, 0, 0, 0.45);
 }
 
+.card {
+  position: relative;
+  border-radius: 16px;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* frosted panel — combine .card with .glass in the component layer */
+
 .card-hover:hover {
-  border-color: #2a3c5c;
-  background: linear-gradient(180deg, rgba(45, 212, 191, 0.06), rgba(255, 255, 255, 0));
+  border-color: rgba(255, 255, 255, 0.22);
+  background:
+    linear-gradient(
+      155deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.04) 42%,
+      rgba(255, 255, 255, 0.06) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 14px 38px rgba(0, 0, 0, 0.55);
+  transform: translateY(-1px);
+}
+
+/* Hairline sheen along the top edge of glass cards */
+.sheen {
+  position: relative;
+  overflow: hidden;
+}
+.sheen::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  pointer-events: none;
 }
 
 input,
@@ -84,7 +156,7 @@ textarea {
 }
 
 input[type="range"] {
-  accent-color: var(--color-accent);
+  accent-color: #ffffff;
 }
 
 @media print {
@@ -100,6 +172,8 @@ input[type="range"] {
     color: #000 !important;
     border: none !important;
     box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
   }
   .print-sheet * {
     color: #000 !important;

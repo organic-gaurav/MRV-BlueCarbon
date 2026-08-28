@@ -324,7 +324,7 @@ function ReportsInner() {
             <p className="mt-3 text-[12.5px] leading-relaxed text-ink/90">
               Between {report.prev?.vintage ?? "the project start"} and{" "}
               {report.pt.vintage} the project stock changed by{" "}
-              <span className="tnum font-semibold text-emerald-300">
+              <span className="tnum font-semibold text-white">
                 {num(report.pt.deltaCo2eMg)} tCO₂e
               </span>
               , of which {num(report.pt.soilAccrualCo2eMg)} tCO₂e is soil carbon
@@ -379,7 +379,7 @@ function ReportsInner() {
               rows={report.batch.lines.map((l) => [
                 <span
                   key="l"
-                  className={l.key === "net" ? "font-semibold text-emerald-300" : ""}
+                  className={l.key === "net" ? "font-semibold text-white" : ""}
                 >
                   {l.label}
                 </span>,
@@ -388,7 +388,7 @@ function ReportsInner() {
                 </span>,
                 <span
                   key="v"
-                  className={`tnum ${l.sign < 0 ? "text-rose-300" : ""}`}
+                  className={`tnum ${l.sign < 0 ? "text-neutral-400" : ""}`}
                 >
                   {l.sign < 0 ? "−" : ""}
                   {num(Math.abs(l.value))}

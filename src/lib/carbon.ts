@@ -37,9 +37,9 @@ export const ECOSYSTEM_LABEL: Record<Ecosystem, string> = {
 };
 
 export const ECOSYSTEM_COLOR: Record<Ecosystem, string> = {
-  mangrove: "#10b981",
-  seagrass: "#22d3ee",
-  saltmarsh: "#a3e635",
+  mangrove: "#ffffff",
+  seagrass: "#b0b0b0",
+  saltmarsh: "#5c5c5c",
 };
 
 /**

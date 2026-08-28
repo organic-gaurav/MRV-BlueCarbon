@@ -110,7 +110,7 @@ export default function OverviewPage() {
             labels={pf.rows[0]?.series.map((s) => s.vintage) ?? []}
             series={pf.rows.slice(0, 4).map((r, i) => ({
               name: r.project.code,
-              color: ["#2dd4bf", "#60a5fa", "#a3e635", "#f472b6"][i],
+              color: ["#ffffff", "#c2c2c2", "#8a8a8a", "#565656"][i],
               values: r.series.map((s) => s.totalCMg),
             }))}
             formatValue={(v) => `${Math.round(v / 1000)}k`}
@@ -171,12 +171,12 @@ export default function OverviewPage() {
             stacked={[
               {
                 name: "Net issued",
-                color: "#2dd4bf",
+                color: "#ffffff",
                 values: pf.vintageTotals.map((v) => v.net),
               },
               {
                 name: "Deductions",
-                color: "#3f5478",
+                color: "#3a3a3a",
                 values: pf.vintageTotals.map((v) => Math.max(0, v.gross - v.net)),
               },
             ]}
@@ -189,7 +189,7 @@ export default function OverviewPage() {
           <LineChart
             height={190}
             labels={pf.vintageTotals.map((v) => v.vintage)}
-            series={[{ name: "Cumulative", color: "#a78bfa", values: cumSeries }]}
+            series={[{ name: "Cumulative", color: "#c2c2c2", values: cumSeries }]}
             formatValue={(v) => `${Math.round(v / 1000)}k`}
           />
         </Card>
@@ -289,7 +289,7 @@ export default function OverviewPage() {
               </span>
               <Sparkline
                 values={r.series.map((s) => s.deltaCo2eMg)}
-                color="#2dd4bf"
+                color="#ffffff"
                 width={52}
                 height={18}
               />

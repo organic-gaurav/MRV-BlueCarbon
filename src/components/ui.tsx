@@ -12,7 +12,7 @@ export function Card({
   hover?: boolean;
 }) {
   return (
-    <div className={`card p-4 ${hover ? "card-hover" : ""} ${className}`}>
+    <div className={`card glass sheen p-4 ${hover ? "card-hover" : ""} ${className}`}>
       {children}
     </div>
   );
@@ -38,15 +38,20 @@ export function SectionTitle({
   );
 }
 
+/*
+ * Monochrome tone ladder — semantic colours collapse into a black & white
+ * intensity scale. "rose" (danger) inverts to a solid white chip so critical
+ * states still read at a glance.
+ */
 const TONES = {
-  emerald: "bg-emerald-500/12 text-emerald-300 border-emerald-500/25",
-  cyan: "bg-cyan-500/12 text-cyan-300 border-cyan-500/25",
-  lime: "bg-lime-500/12 text-lime-300 border-lime-500/25",
-  amber: "bg-amber-500/12 text-amber-300 border-amber-500/25",
-  rose: "bg-rose-500/12 text-rose-300 border-rose-500/25",
-  blue: "bg-blue-500/12 text-blue-300 border-blue-500/25",
-  slate: "bg-slate-500/12 text-slate-300 border-slate-500/25",
-  violet: "bg-violet-500/12 text-violet-300 border-violet-500/25",
+  emerald: "bg-white/12 text-white border-white/30",
+  cyan: "bg-white/[0.09] text-neutral-100 border-white/[0.22]",
+  blue: "bg-white/[0.07] text-neutral-200 border-white/[0.18]",
+  lime: "bg-white/[0.06] text-neutral-300 border-white/[0.15]",
+  violet: "bg-white/[0.05] text-neutral-300 border-white/[0.14]",
+  amber: "bg-white/[0.04] text-neutral-400 border-white/[0.12]",
+  slate: "bg-white/[0.035] text-neutral-400 border-white/10",
+  rose: "bg-white text-black border-white font-semibold",
 } as const;
 
 export type Tone = keyof typeof TONES;
@@ -62,7 +67,7 @@ export function Badge({
 }) {
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full border px-2 py-[2px] text-[10.5px] font-medium tracking-wide uppercase ${TONES[tone]} ${className}`}
+      className={`inline-flex items-center gap-1 rounded-full border px-2 py-[2px] text-[10.5px] font-medium tracking-wide uppercase backdrop-blur-sm ${TONES[tone]} ${className}`}
     >
       {children}
     </span>
@@ -71,14 +76,14 @@ export function Badge({
 
 export function Dot({ tone = "slate" }: { tone?: Tone }) {
   const map: Record<Tone, string> = {
-    emerald: "bg-emerald-400",
-    cyan: "bg-cyan-400",
-    lime: "bg-lime-400",
-    amber: "bg-amber-400",
-    rose: "bg-rose-400",
-    blue: "bg-blue-400",
-    slate: "bg-slate-400",
-    violet: "bg-violet-400",
+    emerald: "bg-white",
+    cyan: "bg-neutral-200",
+    blue: "bg-neutral-300",
+    lime: "bg-neutral-400",
+    violet: "bg-neutral-400",
+    amber: "bg-neutral-500",
+    slate: "bg-neutral-600",
+    rose: "bg-white ring-2 ring-white/25",
   };
   return <span className={`inline-block h-1.5 w-1.5 rounded-full ${map[tone]}`} />;
 }
@@ -103,18 +108,22 @@ export function Button({
   title?: string;
 }) {
   const base =
-    "inline-flex items-center justify-center gap-1.5 rounded-lg font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/40";
+    "inline-flex items-center justify-center gap-1.5 rounded-lg font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-white/25";
   const sizes = {
     sm: "px-2.5 py-1 text-[11.5px]",
     md: "px-3.5 py-2 text-[13px]",
   }[size];
   const variants = {
-    default: "bg-panel-2 border border-line text-ink hover:bg-[#1a2842]",
+    default:
+      "bg-white/[0.06] border border-white/10 text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur hover:bg-white/[0.11] hover:border-white/20",
     primary:
-      "bg-accent text-[#04211d] hover:bg-[#5eead4] border border-transparent font-semibold",
-    ghost: "text-muted hover:text-ink hover:bg-white/5 border border-transparent",
-    danger: "bg-rose-500/15 border border-rose-500/30 text-rose-300 hover:bg-rose-500/25",
-    outline: "border border-line text-ink hover:bg-white/5 bg-transparent",
+      "bg-white text-black hover:bg-neutral-200 border border-white font-semibold shadow-[0_0_28px_rgba(255,255,255,0.14)]",
+    ghost:
+      "text-muted hover:text-white hover:bg-white/[0.06] border border-transparent",
+    danger:
+      "border border-white/40 text-white hover:bg-white hover:text-black hover:border-white font-semibold",
+    outline:
+      "border border-white/15 text-ink hover:bg-white/[0.07] hover:border-white/25 bg-transparent backdrop-blur",
   }[variant];
   return (
     <button
@@ -145,17 +154,17 @@ export function Stat({
   spark?: React.ReactNode;
 }) {
   const accent: Record<Tone, string> = {
-    emerald: "text-emerald-300",
-    cyan: "text-cyan-300",
-    lime: "text-lime-300",
-    amber: "text-amber-300",
-    rose: "text-rose-300",
-    blue: "text-blue-300",
-    slate: "text-slate-200",
-    violet: "text-violet-300",
+    emerald: "text-white",
+    cyan: "text-neutral-100",
+    blue: "text-neutral-200",
+    lime: "text-neutral-300",
+    violet: "text-neutral-300",
+    amber: "text-neutral-400",
+    slate: "text-neutral-200",
+    rose: "text-white",
   };
   return (
-    <div className="card p-4">
+    <div className="card glass sheen p-4">
       <div className="flex items-center justify-between">
         <p className="text-[11px] font-medium uppercase tracking-wider text-muted">
           {label}
@@ -199,7 +208,7 @@ export function Table({
           {rows.map((r, i) => (
             <tr
               key={i}
-              className="border-b border-line-soft/70 transition-colors hover:bg-white/[0.03]"
+              className="border-b border-line-soft/70 transition-colors hover:bg-white/[0.04]"
             >
               {r.map((c, j) => (
                 <td key={j} className="px-3 py-2 align-middle text-ink/90">
@@ -227,17 +236,17 @@ export function Progress({
   className?: string;
 }) {
   const bg: Record<Tone, string> = {
-    emerald: "bg-emerald-400",
-    cyan: "bg-cyan-400",
-    lime: "bg-lime-400",
-    amber: "bg-amber-400",
-    rose: "bg-rose-400",
-    blue: "bg-blue-400",
-    slate: "bg-slate-400",
-    violet: "bg-violet-400",
+    emerald: "bg-white",
+    cyan: "bg-neutral-200",
+    blue: "bg-neutral-300",
+    lime: "bg-neutral-400",
+    violet: "bg-neutral-400",
+    amber: "bg-neutral-500",
+    slate: "bg-neutral-600",
+    rose: "bg-white",
   };
   return (
-    <div className={`h-1.5 w-full overflow-hidden rounded-full bg-white/8 ${className}`}>
+    <div className={`h-1.5 w-full overflow-hidden rounded-full bg-white/10 ${className}`}>
       <div
         className={`h-full rounded-full ${bg[tone]} transition-all`}
         style={{ width: `${Math.max(0, Math.min(100, value))}%` }}
@@ -267,7 +276,7 @@ export function Field({
 }
 
 export const inputCls =
-  "w-full rounded-lg border border-line bg-canvas/60 px-3 py-2 text-[13px] text-ink placeholder:text-faint outline-none transition-colors focus:border-accent/60 focus:ring-1 focus:ring-accent/30";
+  "w-full rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-[13px] text-ink placeholder:text-neutral-600 outline-none transition-colors backdrop-blur focus:border-white/45 focus:bg-white/[0.06] focus:ring-1 focus:ring-white/20";
 
 export function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return <input {...props} className={`${inputCls} ${props.className ?? ""}`} />;
@@ -295,15 +304,15 @@ export function Tabs<T extends string>({
   onChange: (id: T) => void;
 }) {
   return (
-    <div className="flex flex-wrap gap-1 rounded-lg border border-line bg-panel/60 p-1">
+    <div className="flex flex-wrap gap-1 rounded-lg border border-white/10 bg-white/[0.04] p-1 backdrop-blur">
       {tabs.map((t) => (
         <button
           key={t.id}
           onClick={() => onChange(t.id)}
           className={`rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors ${
             active === t.id
-              ? "bg-accent/15 text-accent"
-              : "text-muted hover:bg-white/5 hover:text-ink"
+              ? "bg-white/[0.13] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]"
+              : "text-muted hover:bg-white/[0.06] hover:text-white"
           }`}
         >
           {t.label}
@@ -326,7 +335,7 @@ export function EmptyState({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="card flex flex-col items-center justify-center gap-2 p-10 text-center">
+    <div className="card glass sheen flex flex-col items-center justify-center gap-2 p-10 text-center">
       <p className="text-sm font-medium text-ink">{title}</p>
       {body && <p className="max-w-md text-xs text-muted">{body}</p>}
       {action}

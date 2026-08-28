@@ -113,11 +113,11 @@ export default function RegistryPage() {
             labels={byVintage.map((v) => v.vintage)}
             values={[]}
             stacked={[
-              { name: "Net issued", color: "#34d399", values: byVintage.map((v) => v.net) },
-              { name: "Buffer pool", color: "#fbbf24", values: byVintage.map((v) => v.buffer) },
+              { name: "Net issued", color: "#ffffff", values: byVintage.map((v) => v.net) },
+              { name: "Buffer pool", color: "#8a8a8a", values: byVintage.map((v) => v.buffer) },
               {
                 name: "Leakage + uncertainty",
-                color: "#64748b",
+                color: "#3a3a3a",
                 values: byVintage.map((v) => v.deductions),
               },
             ]}
@@ -130,8 +130,8 @@ export default function RegistryPage() {
           <Donut
             size={140}
             segments={[
-              { label: "Available", value: Math.max(0, issued - retired), color: "#34d399" },
-              { label: "Retired", value: retired, color: "#a78bfa" },
+              { label: "Available", value: Math.max(0, issued - retired), color: "#ffffff" },
+              { label: "Retired", value: retired, color: "#c2c2c2" },
             ]}
             centre={{ value: tCO2e(issued), label: "issued" }}
           />
@@ -176,16 +176,16 @@ export default function RegistryPage() {
             <span key="g" className="tnum">
               {num(i.grossT)}
             </span>,
-            <span key="l" className="tnum text-rose-300">
+            <span key="l" className="tnum text-neutral-400">
               −{num(i.leakageT)}
             </span>,
-            <span key="u" className="tnum text-rose-300">
+            <span key="u" className="tnum text-neutral-400">
               −{num(i.uncertaintyT)}
             </span>,
-            <span key="b" className="tnum text-amber-300">
+            <span key="b" className="tnum text-neutral-400">
               −{num(i.bufferT)}
             </span>,
-            <span key="n" className="tnum font-semibold text-emerald-300">
+            <span key="n" className="tnum font-semibold text-white">
               {num(i.netT)}
             </span>,
             i.status === "retired" ? (
@@ -236,7 +236,7 @@ export default function RegistryPage() {
             <p className="text-[12px] text-faint">No credits retired yet in this view.</p>
           ) : (
             <HBar
-              items={byBuyer.map((b) => ({ label: b.buyer, value: b.t, color: "#a78bfa" }))}
+              items={byBuyer.map((b) => ({ label: b.buyer, value: b.t, color: "#c2c2c2" }))}
               formatValue={(v) => `${num(v)} tCO₂e`}
             />
           )}
@@ -248,7 +248,7 @@ export default function RegistryPage() {
             items={data.projects.map((p) => ({
               label: `${p.code} · ${p.name}`,
               value: rows.filter((r) => r.project.id === p.id).reduce((a, r) => a + r.i.bufferT, 0),
-              color: "#fbbf24",
+              color: "#8a8a8a",
               sub: `${p.bufferPct}% contribution rate`,
             }))}
             formatValue={(v) => `${num(v)} tCO₂e`}

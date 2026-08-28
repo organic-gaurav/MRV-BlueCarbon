@@ -395,10 +395,10 @@ function VerificationInner() {
                                 className={`rounded-md border px-2 py-0.5 text-[10.5px] transition-colors ${
                                   c.state === s
                                     ? s === "pass"
-                                      ? "border-emerald-500/40 bg-emerald-500/15 text-emerald-300"
+                                      ? "border-white bg-white text-black font-semibold"
                                       : s === "fail"
-                                        ? "border-rose-500/40 bg-rose-500/15 text-rose-300"
-                                        : "border-amber-500/40 bg-amber-500/15 text-amber-300"
+                                        ? "border-white/45 bg-white/[0.14] text-white"
+                                        : "border-white/20 bg-white/[0.07] text-neutral-200"
                                     : "border-line text-faint hover:text-ink"
                                 }`}
                               >
@@ -427,10 +427,10 @@ function VerificationInner() {
                           key={f.id}
                           className={`rounded-lg border p-3 ${
                             f.status === "resolved"
-                              ? "border-emerald-500/25 bg-emerald-500/5"
+                              ? "border-white/25 bg-white/[0.06]"
                               : f.severity === "major"
-                                ? "border-rose-500/30 bg-rose-500/5"
-                                : "border-amber-500/25 bg-amber-500/5"
+                                ? "border-white/40 bg-white/[0.09]"
+                                : "border-white/[0.14] bg-white/[0.04]"
                           }`}
                         >
                           <div className="flex flex-wrap items-center gap-2">
@@ -457,7 +457,7 @@ function VerificationInner() {
                             {f.detail}
                           </p>
                           {f.status === "resolved" ? (
-                            <p className="mt-2 border-t border-emerald-500/20 pt-1.5 text-[11px] text-emerald-300">
+                            <p className="mt-2 border-t border-white/20 pt-1.5 text-[11px] text-white">
                               ✓ Closed — {f.response}
                             </p>
                           ) : (
