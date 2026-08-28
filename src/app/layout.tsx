@@ -3,11 +3,19 @@ import "./globals.css";
 import { StoreProvider } from "@/lib/store";
 import { AppShell } from "@/components/AppShell";
 import { buildDataset } from "@/lib/seed";
+import { BRAND } from "@/lib/branding";
 
 export const metadata: Metadata = {
-  title: "MRV-BlueCarbon — blue carbon monitoring, reporting & verification",
+  title: {
+    default: `${BRAND.product} — blue carbon monitoring, reporting & verification`,
+    template: `%s · ${BRAND.product}`,
+  },
   description:
-    "Prototype MRV platform for coastal blue carbon projects: field measurement, carbon accounting, verification and credit issuance.",
+    "MRV platform for coastal blue carbon projects: field measurement, carbon accounting, verification and credit issuance.",
+  applicationName: BRAND.product,
+  authors: [{ name: BRAND.owner, url: BRAND.github }],
+  creator: BRAND.owner,
+  publisher: BRAND.owner,
 };
 
 export default function RootLayout({

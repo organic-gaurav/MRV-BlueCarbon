@@ -18,6 +18,12 @@ summary of the generated dataset and the credit calculation for every project).
 
 ---
 
+## Branding
+
+All names, handles and credit lines live in one file — `src/lib/branding.ts`.
+Change `BRAND` and the sidebar, browser tab, favicon, page metadata and printed
+report footer all follow.
+
 ## What's in the box
 
 Nine screens, one shared data model.

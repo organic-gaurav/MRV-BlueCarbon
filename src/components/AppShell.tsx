@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { useStore } from "@/lib/store";
+import { BRAND } from "@/lib/branding";
 import { Button } from "./ui";
 
 const NAV: {
@@ -112,8 +113,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </svg>
           </div>
           <div className="leading-tight">
-            <p className="text-[13px] font-semibold text-ink">MRV-BlueCarbon</p>
-            <p className="text-[10px] text-muted">Prototype v0.1</p>
+            <p className="text-[13px] font-semibold text-ink">{BRAND.product}</p>
+            <p className="text-[10px] text-muted">
+              {BRAND.handle} · {BRAND.version}
+            </p>
           </div>
         </div>
 
@@ -151,6 +154,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               ? `${data.projects.length} projects · ${data.plots.length} plots · ${data.observations.length} surveys`
               : "Generating dataset…"}
           </p>
+          <p className="mb-2 text-[10px] text-faint">{BRAND.credit}</p>
           {confirmReset ? (
             <div className="flex gap-1.5">
               <Button
@@ -187,7 +191,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <path d="M12 21c0-6 3-10 8-11-1 6-4 9-8 11zM12 21c0-6-3-10-8-11 1 6 4 9 8 11z" />
             </svg>
           </div>
-          <p className="text-[13px] font-semibold">MRV-BlueCarbon</p>
+          <div className="leading-tight">
+            <p className="text-[13px] font-semibold">{BRAND.product}</p>
+            <p className="text-[9.5px] text-muted">{BRAND.handle}</p>
+          </div>
           <div className="ml-auto flex gap-1 overflow-x-auto">
             {NAV.map((n) => (
               <Link
