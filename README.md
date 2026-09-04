@@ -16,9 +16,12 @@ npm run dev        # http://localhost:3000  (editing / hot reload)
 **For a demo, use the production build** — it is dramatically snappier:
 
 ```
-npm run build
-npm run start      # http://localhost:3000
+npm run serve      # install + build + start, all in one  -> http://localhost:3000
 ```
+
+(`npm run serve` is the one command you need on a fresh clone or after
+`rm -rf node_modules .next`. It is equivalent to
+`npm install && npm run build && npm run start`.)
 
 Measured in this repo: dev mode ships ~800 KB of uncompressed HTML per page
 (~1.2 s to navigate); the production build serves the same page gzipped in

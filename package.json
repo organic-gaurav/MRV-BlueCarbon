@@ -2,14 +2,16 @@
   "name": "mrv-bluecarbon",
   "version": "0.1.0",
   "private": true,
-  "description": "MRV-BlueCarbon — Monitoring, Reporting & Verification prototype for blue carbon (mangrove, seagrass, saltmarsh) projects.",
+  "description": "MRV-BlueCarbon \u2014 Monitoring, Reporting & Verification prototype for blue carbon (mangrove, seagrass, saltmarsh) projects.",
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
     "start": "next start -H 0.0.0.0 -p 3000",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test tests/*.test.ts"
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "serve": "npm install --no-audit --no-fund && npm run build && npm run start",
+    "rebuild": "npm install --no-audit --no-fund && npm run build"
   },
   "dependencies": {
     "next": "15.5.24",
