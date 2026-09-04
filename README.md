@@ -32,6 +32,30 @@ generated dataset and the credit calculation for every project).
 
 ---
 
+## Deploying
+
+The app is fully prerendered, so it ships as a **static site** — no server, no
+database. `.github/workflows/deploy.yml` builds it with
+`NEXT_OUTPUT=export GH_PAGES=true npm run build` (output in `out/`) and
+publishes to **GitHub Pages**.
+
+One-time setup in the repo:
+
+1. **Settings → Pages → Build and deployment → Source → `GitHub Actions`**
+2. Push to this branch (or re-run the failed workflow) — the Action builds and
+   deploys.
+
+The site then lives at:
+
+```
+https://organic-gaurav.github.io/MRV-BlueCarbon/
+```
+
+`basePath` is applied automatically when `GH_PAGES=true`, so assets resolve
+correctly under the `/MRV-BlueCarbon/` project path. To host it elsewhere
+(Vercel, Netlify, S3), deploy the `out/` folder — or use the default server
+build with `npm run serve`.
+
 ## Branding
 
 All names, handles and credit lines live in one file — `src/lib/branding.ts`.
