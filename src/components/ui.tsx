@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export function Card({
   children,
@@ -278,6 +278,52 @@ export function Select(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
     <select {...props} className={`${inputCls} ${props.className ?? ""}`}>
       {props.children}
     </select>
+  );
+}
+
+/**
+ * Numeric input that keeps its own state while typing and only commits on blur
+ * or Enter — so a keystroke never triggers a store update + re-render.
+ */
+export function NumberField({
+  value,
+  onCommit,
+  step,
+  min,
+  max,
+  className,
+}: {
+  value: number;
+  onCommit: (n: number) => void;
+  step?: number;
+  min?: number;
+  max?: number;
+  className?: string;
+}) {
+  const [local, setLocal] = useState(String(value));
+  useEffect(() => setLocal(String(value)), [value]);
+  const commit = () => {
+    const n = Number(local);
+    if (Number.isFinite(n)) onCommit(n);
+    else setLocal(String(value));
+  };
+  return (
+    <Input
+      type="number"
+      step={step}
+      min={min}
+      max={max}
+      value={local}
+      className={className}
+      onChange={(e) => setLocal(e.target.value)}
+      onBlur={commit}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          commit();
+        }
+      }}
+    />
   );
 }
 

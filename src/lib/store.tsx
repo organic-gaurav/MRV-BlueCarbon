@@ -15,6 +15,7 @@ import React, {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import { buildDataset, hashEvent } from "./seed";
@@ -521,14 +522,36 @@ export function StoreProvider({
     setReady(true);
   }, [initialData]);
 
+  // Persist on idle rather than on every keystroke: serialising the dataset is
+  // synchronous and blocked the UI while typing in numeric fields.
+  const dataRef = useRef(data);
+  dataRef.current = data;
+
   useEffect(() => {
     if (!data || !ready) return;
-    try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    } catch {
-      /* storage full — the prototype still works in-memory */
-    }
+    const id = window.setTimeout(() => {
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(dataRef.current));
+      } catch {
+        /* storage full — the prototype still works in-memory */
+      }
+    }, 400);
+    return () => window.clearTimeout(id);
   }, [data, ready]);
+
+  // Make sure nothing is lost if the tab closes mid-debounce.
+  useEffect(() => {
+    const flush = () => {
+      try {
+        if (dataRef.current)
+          window.localStorage.setItem(STORAGE_KEY, JSON.stringify(dataRef.current));
+      } catch {
+        /* ignore */
+      }
+    };
+    window.addEventListener("pagehide", flush);
+    return () => window.removeEventListener("pagehide", flush);
+  }, []);
 
   const dispatch = useCallback((action: Action) => {
     setData((d) => (d ? reducer(d, action) : d));

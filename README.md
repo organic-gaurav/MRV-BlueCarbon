@@ -10,11 +10,22 @@ computed from the stored plot measurements; nothing is hard-coded.
 
 ```
 npm install
-npm run dev        # http://localhost:3000
+npm run dev        # http://localhost:3000  (editing / hot reload)
 ```
 
-Other scripts: `npm run build`, `npm run typecheck`, `npm run check` (prints a
-summary of the generated dataset and the credit calculation for every project).
+**For a demo, use the production build** — it is dramatically snappier:
+
+```
+npm run build
+npm run start      # http://localhost:3000
+```
+
+Measured in this repo: dev mode ships ~800 KB of uncompressed HTML per page
+(~1.2 s to navigate); the production build serves the same page gzipped in
+~78 KB (~20–50 ms). Use `npm run dev` only while editing.
+
+Other scripts: `npm run typecheck`, `npm run check` (prints a summary of the
+generated dataset and the credit calculation for every project).
 
 ---
 

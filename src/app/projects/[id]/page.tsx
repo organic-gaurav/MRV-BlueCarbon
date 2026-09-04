@@ -22,6 +22,7 @@ import {
   Field,
   Input,
   KV,
+  NumberField,
   Progress,
   SectionTitle,
   Stat,
@@ -687,88 +688,68 @@ export default function ProjectPage() {
             />
             <div className="grid gap-3 sm:grid-cols-2">
               <Field label="Carbon fraction of dry biomass">
-                <Input
-                  type="number"
-                  step="0.01"
+                <NumberField
+                  step={0.01}
                   value={project.params.carbonFraction}
-                  onChange={(e) =>
+                  onCommit={(n) =>
                     dispatch({
                       type: "update-params",
                       projectId: project.id,
-                      params: {
-                        ...project.params,
-                        carbonFraction: Number(e.target.value),
-                      },
+                      params: { ...project.params, carbonFraction: n },
                     })
                   }
                 />
               </Field>
               <Field label="Root : shoot ratio (BGB/AGB)">
-                <Input
-                  type="number"
-                  step="0.05"
+                <NumberField
+                  step={0.05}
                   value={project.params.rootShootRatio}
-                  onChange={(e) =>
+                  onCommit={(n) =>
                     dispatch({
                       type: "update-params",
                       projectId: project.id,
-                      params: {
-                        ...project.params,
-                        rootShootRatio: Number(e.target.value),
-                      },
+                      params: { ...project.params, rootShootRatio: n },
                     })
                   }
                 />
               </Field>
               <Field label="Soil carbon stock at t₀ (Mg C ha⁻¹)">
-                <Input
-                  type="number"
+                <NumberField
                   value={project.params.soilCarbonStockMgCHa}
-                  onChange={(e) =>
+                  onCommit={(n) =>
                     dispatch({
                       type: "update-params",
                       projectId: project.id,
-                      params: {
-                        ...project.params,
-                        soilCarbonStockMgCHa: Number(e.target.value),
-                      },
+                      params: { ...project.params, soilCarbonStockMgCHa: n },
                     })
                   }
                 />
               </Field>
               <Field label="Max uncertainty deduction (fraction)">
-                <Input
-                  type="number"
-                  step="0.01"
+                <NumberField
+                  step={0.01}
                   value={project.params.maxUncertaintyDeduction}
-                  onChange={(e) =>
+                  onCommit={(n) =>
                     dispatch({
                       type: "update-params",
                       projectId: project.id,
-                      params: {
-                        ...project.params,
-                        maxUncertaintyDeduction: Number(e.target.value),
-                      },
+                      params: { ...project.params, maxUncertaintyDeduction: n },
                     })
                   }
                 />
               </Field>
               {(["agb", "bgb", "soil", "baseline"] as const).map((k) => (
                 <Field key={k} label={`1σ uncertainty — ${k.toUpperCase()}`}>
-                  <Input
-                    type="number"
-                    step="0.01"
+                  <NumberField
+                    step={0.01}
                     value={project.params.uncertainty[k]}
-                    onChange={(e) =>
+                    onCommit={(n) =>
                       dispatch({
                         type: "update-params",
                         projectId: project.id,
                         params: {
                           ...project.params,
-                          uncertainty: {
-                            ...project.params.uncertainty,
-                            [k]: Number(e.target.value),
-                          },
+                          uncertainty: { ...project.params.uncertainty, [k]: n },
                         },
                       })
                     }
