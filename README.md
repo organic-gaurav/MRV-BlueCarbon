@@ -35,15 +35,23 @@ generated dataset and the credit calculation for every project).
 ## Deploying
 
 The app is fully prerendered, so it ships as a **static site** — no server, no
-database. `.github/workflows/deploy.yml` builds it with
-`NEXT_OUTPUT=export GH_PAGES=true npm run build` (output in `out/`) and
-publishes to **GitHub Pages**.
+database.
 
-One-time setup in the repo:
+### Vercel (easiest)
 
-1. **Settings → Pages → Build and deployment → Source → `GitHub Actions`**
-2. Push to this branch (or re-run the failed workflow) — the Action builds and
-   deploys.
+Import the repo at <https://vercel.com/new>. Vercel detects Next.js and needs no
+configuration; the default server build is used. Done.
+
+### GitHub Pages
+
+`deploy/github-pages-workflow.yml` is a ready-made Actions workflow that builds
+with `NEXT_OUTPUT=export GH_PAGES=true npm run build` (output in `out/`) and
+publishes to Pages. To use it:
+
+1. Move it to `.github/workflows/deploy.yml` (it is kept outside that folder
+   only because the CI token used here cannot write workflow files).
+2. **Settings → Pages → Build and deployment → Source → `GitHub Actions`**
+3. Push — the Action builds and deploys.
 
 The site then lives at:
 
