@@ -18,7 +18,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { buildDataset, hashEvent } from "./seed";
+import { buildDataset, hashEvent, newVerification } from "./seed";
 import {
   CO2_PER_C,
   DEFAULT_OPTIONS,
@@ -89,22 +89,33 @@ export function reducer(data: Dataset, action: Action): Dataset {
           o.ts.slice(0, 4) === action.observation.ts.slice(0, 4),
       );
       if (exists) return data;
-      const campaign = data.campaigns
-        .filter((c) => c.projectId === action.projectId)
-        .sort((a, b) => b.periodEnd.localeCompare(a.periodEnd))[0];
+      // Attach to the campaign for the survey's year; otherwise to the most
+      // recent campaign still open. A verified vintage is never reopened.
+      const year = action.observation.ts.slice(0, 4);
+      const campaign =
+        data.campaigns.find(
+          (c) => c.projectId === action.projectId && c.vintage === year,
+        ) ??
+        data.campaigns
+          .filter(
+            (c) =>
+              c.projectId === action.projectId &&
+              c.status !== "verified" &&
+              c.status !== "rejected",
+          )
+          .sort((a, b) => b.periodEnd.localeCompare(a.periodEnd))[0];
+      const reopenable =
+        campaign && campaign.status !== "verified" && campaign.status !== "rejected";
       const next: Dataset = {
         ...data,
         observations: [...data.observations, action.observation],
-        campaigns: campaign
+        campaigns: reopenable
           ? data.campaigns.map((c) =>
               c.id === campaign.id
                 ? {
                     ...c,
                     status: "in-progress",
-                    plotsSurveyed: Math.min(
-                      c.plotsPlanned,
-                      c.plotsSurveyed + 1,
-                    ),
+                    plotsSurveyed: Math.min(c.plotsPlanned, c.plotsSurveyed + 1),
                   }
                 : c,
             )
@@ -150,11 +161,22 @@ export function reducer(data: Dataset, action: Action): Dataset {
     }
 
     case "start-review": {
+      const exists = data.verifications.some(
+        (v) => v.campaignId === action.campaignId,
+      );
       const next = {
         ...data,
         campaigns: data.campaigns.map((c) =>
           c.id === action.campaignId ? { ...c, status: "under-review" as const } : c,
         ),
+        // A review needs a record to hold the checklist and findings; create
+        // one on the fly if the seeded dataset had none for this campaign.
+        verifications: exists
+          ? data.verifications
+          : [
+              ...data.verifications,
+              newVerification(action.campaignId, now()),
+            ],
       };
       return {
         ...next,

@@ -1469,6 +1469,63 @@ export function buildDataset(seed = 20260828): Dataset {
   };
 }
 
+/** A freshly opened verification — used when a verifier starts a review. */
+export function newVerification(campaignId: string, ts: string): Verification {
+  const checklist: ChecklistItem[] = [
+    {
+      id: `cl-${campaignId}-1`,
+      ref: "MRV §4.1",
+      requirement: "Plot relocation within 5 m of permanent marker",
+      state: "open",
+    },
+    {
+      id: `cl-${campaignId}-2`,
+      ref: "MRV §4.3",
+      requirement: "Soil cores analysed at accredited laboratory",
+      state: "open",
+    },
+    {
+      id: `cl-${campaignId}-3`,
+      ref: "MRV §4.6",
+      requirement: "Remote-sensing extent cross-check within 5%",
+      state: "open",
+    },
+    {
+      id: `cl-${campaignId}-4`,
+      ref: "MRV §5.2",
+      requirement: "Allometric parameters documented and justified",
+      state: "open",
+    },
+    {
+      id: `cl-${campaignId}-5`,
+      ref: "MRV §5.5",
+      requirement: "Uncertainty assessment complete for all pools",
+      state: "open",
+    },
+    {
+      id: `cl-${campaignId}-6`,
+      ref: "MRV §6.1",
+      requirement: "Stakeholder consultation evidence on file",
+      state: "open",
+    },
+  ];
+  return {
+    id: `ver-${campaignId}`,
+    campaignId,
+    body: "Coastal Assurance Bureau",
+    leadAuditor: "You (verifier)",
+    startedOn: ts,
+    activities: [
+      "Desk review of monitoring report",
+      "Site visit and plot re-measurement (10% sample)",
+      "Independent remote-sensing extent assessment",
+      "Stakeholder interviews",
+    ],
+    checklist,
+    findings: [],
+  };
+}
+
 /* ------------------------------------------------------------------ */
 /* Convenience: export the dataset as flat CSV                         */
 /* ------------------------------------------------------------------ */
